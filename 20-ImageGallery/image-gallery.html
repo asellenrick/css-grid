@@ -55,20 +55,20 @@
     }
 
     .gallery {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(auto-fill, 100px);
       grid-auto-rows: 100px;
       grid-auto-flow: dense;
     }
 
-    .item{
+    .item {
       overflow: hidden;
       display: grid;
       grid-template-columns: 1;
       grid-template: 1;
     }
 
-    .item img{
+    .item img {
       grid-column: 1/-1;
       grid-row: 1/-1;
       height: 100%;
@@ -77,7 +77,7 @@
       object-position: center center;
     }
 
-    .item__overlay{
+    .item__overlay {
       background: #ffc60032;
       grid-column: 1/-1;
       grid-row: 1/-1;
@@ -91,48 +91,48 @@
       transition: transform .25s ease;
     }
 
-    .item:hover .item__overlay{
+    .item:hover .item__overlay {
       transform: translateY(0%);
     }
 
-    .item__overlay button{
-      background:none;
+    .item__overlay button {
+      background: none;
       border: 2px solid white;
-      color:#fff;
+      color: #fff;
       text-transform: uppercase;
-      background: rgba(0,0,0,.7);
-      padding:5px;
+      background: rgba(0, 0, 0, .7);
+      padding: 5px;
     }
 
-    .h1{
+    .h1 {
       grid-row: span 1;
     }
 
-    .h2{
+    .h2 {
       grid-row: span 2;
     }
 
-    .h3{
+    .h3 {
       grid-row: span 2;
     }
 
-    .h4{
+    .h4 {
       grid-row: span 2;
     }
 
-    .w1{
+    .w1 {
       grid-column: span 1;
     }
 
-   .w2{
+    .w2 {
       grid-column: span 2;
     }
 
-    .w3{
+    .w3 {
       grid-column: span 3;
     }
 
-    .w4{
+    .w4 {
       grid-column: span 4;
     }
 
@@ -157,7 +157,7 @@
       height: auto;
     }
 
-    .overlay.open .overlay-inner{
+    .overlay.open .overlay-inner {
       opacity: 1;
     }
 
@@ -177,7 +177,7 @@
 
   <script>
     const totalImages = 75;
-    const largeImages = Math.floor(totalImages*.8);
+    const largeImages = Math.floor(totalImages * .8);
     const smallImages = totalImages - largeImages;
 
     const gallery = document.querySelector('.gallery');
@@ -185,7 +185,7 @@
     const overlayImage = overlay.querySelector('img');
     const overlayClose = overlay.querySelector('.close');
 
-    function generateImage([h,w]){
+    function generateImage([h, w]) {
       return `
         <div class="item h${h} w${w}">
           <img src="images/${randomNumber(12)}.jpg">
@@ -195,41 +195,41 @@
         </div>
       `;
     }
-    
-    function randomNumber(num){
-      return Math.ceil(Math.random()*num);
+
+    function randomNumber(num) {
+      return Math.ceil(Math.random() * num);
     }
 
-    const imageSizesLarge = Array.from({length:largeImages}, ()=> {
-      return [randomNumber(4),randomNumber(4)];
+    const imageSizesLarge = Array.from({ length: largeImages }, () => {
+      return [randomNumber(4), randomNumber(4)];
     })
 
-    const imageSizesSmall = Array.from({length:smallImages}, ()=> {
-      return [randomNumber(1),randomNumber(1)];
+    const imageSizesSmall = Array.from({ length: smallImages }, () => {
+      return [randomNumber(1), randomNumber(1)];
     })
 
     const allImageSizes = imageSizesLarge.concat(imageSizesSmall);
     const html = allImageSizes.map(generateImage).join('');
-    
+
     gallery.innerHTML = html;
 
     const items = document.querySelectorAll('.item');
-    items.forEach( item => item.addEventListener('click',itemClick));
-    
-    overlayClose.addEventListener('click',closeOverlay);
+    items.forEach(item => item.addEventListener('click', itemClick));
 
-    function itemClick(e){
+    overlayClose.addEventListener('click', closeOverlay);
+
+    function itemClick(e) {
       console.log(e);
       const src = e.currentTarget.querySelector('img').src;
       overlayImage.src = src;
       openOverlay();
     }
 
-    function openOverlay(){
+    function openOverlay() {
       overlay.classList.add('open');
     }
 
-    function closeOverlay(){
+    function closeOverlay() {
       overlay.classList.remove('open');
     }
 
